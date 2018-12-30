@@ -19,8 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class AbstractModel
- *
- * @ORM\HasLifecycleCallbacks()
  */
 abstract class AbstractModel
 {
@@ -28,11 +26,9 @@ abstract class AbstractModel
     use TimestampableTrait;
 
     /**
-     * @ORM\PrePersist()
-     *
      * @throws \Exception
      */
-    protected function onPersist()
+    public function onPersist()
     {
         $this->createdAt = new \DateTime();
     }
@@ -42,7 +38,7 @@ abstract class AbstractModel
      *
      * @throws \Exception
      */
-    protected function onUpdate()
+    public function onUpdate()
     {
         $this->updatedAt = new \DateTime();
     }

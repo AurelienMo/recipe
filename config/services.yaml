@@ -24,5 +24,10 @@ services:
         resource: '../src/UI/Actions'
         tags: ['controller.service_arguments']
 
+    App\Application\Subscribers\TimestampableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,93 @@
+App\Domain\Model\TypeQuantity:
+    typequantity.gram:
+        __construct: ["type_quantity.gram.name", "g"]
+    typequantity.kilo_gram:
+        __construct: ["type_quantity.kilo_gram.name", "kg"]
+    typequantity.soup_spoon:
+        __construct: ["type_quantity.soup_spoon.name", "cas"]
+    typequantity.teaspoon:
+        __construct: ["type_quantity.teaspoon.name", "cac"]
+    typequantity.liter:
+        __construct: ["type_quantity.liter.name", "l"]
+    typequantity.milli_liter:
+        __construct: ["type_quantity.milli_liter.name", "ml"]
+    typequantity.centi_liter:
+        __construct: ["type_quantity.centi_liter.name", "cl"]
+    typequantity.clove:
+        __construct: ["type_quantity.clove.name", "clove"]
+
+App\Domain\Model\TypeRecipe:
+    typerecipe.starter:
+        __construct: ["type_recipe.starter.name"]
+    typerecipe.dish:
+        __construct: ["type_recipe.dish.name"]
+    typerecipe.dessert:
+        __construct: ["type_recipe.dessert.name"]
+
+App\Domain\Model\TypeProduct:
+    type_product.fruit_legume:
+        __construct: ["type_product.fruit_legume.name"]
+    type_product.poisson:
+        __construct: ["type_product.poisson.name"]
+    type_product.boucherie:
+        __construct: ["type_product.boucherie.name"]
+    type_product.volaille:
+        __construct: ["type_product.volaille.name"]
+    type_product.pain_patisserie:
+        __construct: ["type_product.pain_patisserie.name"]
+    type_product.cremerie_oeuf_lait:
+        __construct: ["type_product.cremerie_oeuf_lait.name"]
+    type_product.fromage:
+        __construct: ["type_product.fromage.name"]
+    type_product.yaourt_dessert:
+        __construct: ["type_product.yaourt_dessert.name"]
+    type_product.charcuterie:
+        __construct: ["type_product.charcuterie.name"]
+    type_product.traiteur:
+        __construct: ["type_product.traiteur.name"]
+    type_product.surgeles_apero_entree:
+        __construct: ["type_product.surgeles_apero_entree.name"]
+    type_product.surgeles_pizza_tartes_plat_cuisine:
+        __construct: ["type_product.surgeles_pizza_tartes_plat_cuisine.name"]
+    type_product.surgeles_viande_poisson:
+        __construct: ["type_product.surgeles_viande_poisson.name"]
+    type_product.surgeles_frite_legume_garniture:
+        __construct: ["type_product.surgeles_frite_legume_garniture.name"]
+    type_product.surgeles_glace_patisserie_viennoiserie:
+        __construct: ["type_product.surgeles_glace_patisserie_viennoiserie.name"]
+    type_product.apero:
+        __construct: ["type_product.apero.name"]
+    type_product.potage_soupe:
+        __construct: ["type_product.potage_soupe.name"]
+    type_product.feculent:
+        __construct: ["type_product.feculent.name"]
+    type_product.condiment_sauce:
+        __construct: ["type_product.condiment_sauce.name"]
+    type_product.conserve:
+        __construct: ["type_product.conserve.name"]
+    type_product.gateau:
+        __construct: ["type_product.gateau.name"]
+    type_product.petit_dejeuner:
+        __construct: ["type_product.petit_dejeuner.name"]
+    type_product.boisson_chaude:
+        __construct: ["type_product.boisson_chaude.name"]
+    type_product.dessert_sucre_farine:
+        __construct: ["type_product.dessert_sucre_farine.name"]
+    type_product.chocolat_bonbon:
+        __construct: ["type_product.chocolat_bonbon.name"]
+    type_product.boisson:
+        __construct: ["type_product.boisson.name"]
+    type_product.puericulture:
+        __construct: ["type_product.puericulture.name"]
+    type_product.hygiene_femme:
+        __construct: ["type_product.hygiene_femme.name"]
+    type_product.hygiene_homme:
+        __construct: ["type_product.hygiene_homme.name"]
+    type_product.parapharmacie_textile:
+        __construct: ["type_product.parapharmacie_textile.name"]
+    type_product.entretien:
+        __construct: ["type_product.entretien.name"]
+    type_product.animaux:
+        __construct: ["type_product.animaux.name"]
+    type_product.autres:
+        __construct: ["type_product.autres.name"]

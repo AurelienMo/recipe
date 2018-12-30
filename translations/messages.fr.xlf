@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="type_quantity.gram.name">
+                <source>type_quantity.gram.name</source>
+                <target>Gramme</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.kilo_gram.name">
+                <source>type_quantity.kilo_gram.name</source>
+                <target>Kilo gramme</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.soup_spoon.name">
+                <source>type_quantity.soup_spoon.name</source>
+                <target>Cuillère à soupe</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.teaspoon.name">
+                <source>type_quantity.teaspoon.name</source>
+                <target>Cuillère à café</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.liter.name">
+                <source>type_quantity.liter.name</source>
+                <target>Litre</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.milli_liter.name">
+                <source>type_quantity.milli_liter.name</source>
+                <target>Milli litre</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.centi_liter.name">
+                <source>type_quantity.centi_liter.name</source>
+                <target>Centi litre</target>
+            </trans-unit>
+            <trans-unit id="type_quantity.clove.name">
+                <source>type_quantity.clove.name</source>
+                <target>Gousse</target>
+            </trans-unit>
+            <trans-unit id="type_recipe.starter.name">
+                <source>type_quantity.starter.name</source>
+                <target>Entrée</target>
+            </trans-unit>
+            <trans-unit id="type_recipe.dish.name">
+                <source>type_quantity.dish.name</source>
+                <target>Plat</target>
+            </trans-unit>
+            <trans-unit id="type_recipe.dessert.name">
+                <source>type_quantity.dessert.name</source>
+                <target>Dessert</target>
+            </trans-unit>
+            <trans-unit id="type_product.fruit_legume.name">
+                <source>type_quantity.fruit_legume.name</source>
+                <target>Fruit et Légumes</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
