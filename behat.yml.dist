@@ -1,0 +1,25 @@
+default:
+    suites:
+        default:
+            contexts:
+                - CustomMinkContext
+                - DoctrineContext:
+                    doctrine: '@doctrine'
+                    kernel: '@kernel'
+                    passwordEncoder: '@security.password_encoder'
+                - CustomRestContext
+                - behatch:context:json
+                - AccountContext:
+                    doctrine: '@doctrine'
+
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: App\Kernel
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony2: ~
+        Behatch\Extension: ~
