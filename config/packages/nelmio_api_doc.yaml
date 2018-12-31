@@ -1,0 +1,28 @@
+nelmio_api_doc:
+    models: { use_jms: false }
+    documentation:
+        info:
+            title: Recipe App
+            description: App to manage stock and decision to prepare launch
+            version: 1.0.0
+        definitions:
+            ListProductOutput:
+                type: array
+                items:
+                    $ref: "#/definitions/ProductItemOutput"
+            ProductItemOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    name:
+                        type: string
+                        required: true
+                    typeProduct:
+                        type: integer
+                        required: true
+                        description: Unique identifier for product type
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

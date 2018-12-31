@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Product
  *
  * @ORM\Table(name="amo_product")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Domain\Repository\ProductRepository")
  */
 class Product extends AbstractModel
 {

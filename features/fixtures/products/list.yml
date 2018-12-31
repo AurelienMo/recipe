@@ -1,0 +1,10 @@
+include:
+    - '../../../config/fixtures/prod/00_load.yml'
+
+App\Domain\Model\Product:
+    product{1..5}:
+        __construct: ["Product <current()>", "@type_product.fruit_legume"]
+    product{6..10}:
+        __construct: ["Product <current()>", "@type_product.poisson"]
+    product{11..15}:
+        __construct: ["Product <current()>", "@type_product.boucherie"]
