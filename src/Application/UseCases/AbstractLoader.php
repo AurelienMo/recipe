@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases;
 
+use App\Application\Helpers\Core\TranslatorBuilder;
 use App\UI\Responders\OutputInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,21 +27,21 @@ abstract class AbstractLoader
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var TranslatorInterface */
-    protected $translator;
+    /** @var TranslatorBuilder */
+    protected $translatorBuilder;
 
     /**
      * AbstractLoader constructor.
      *
      * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
+     * @param TranslatorBuilder      $translatorBuilder
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        TranslatorInterface $translator
+        TranslatorBuilder $translatorBuilder
     ) {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
+        $this->translatorBuilder = $translatorBuilder;
     }
 
     /**
@@ -62,9 +63,4 @@ abstract class AbstractLoader
      * @return string
      */
     abstract protected function getClassRepository(): string;
-
-    protected function translate(string $lang, string $text, string $catalog = 'messages')
-    {
-        return $this->translator->trans($text, [], $catalog, $lang);
-    }
 }

@@ -23,6 +23,19 @@ nelmio_api_doc:
                         type: integer
                         required: true
                         description: Unique identifier for product type
+            ListProductTypeOutput:
+                type: array
+                items:
+                    $ref: "#/definitions/ProductTypeItemOutput"
+            ProductTypeItemOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    names:
+                        type: array
+                        required: true
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

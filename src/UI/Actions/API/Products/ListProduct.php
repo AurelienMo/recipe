@@ -93,6 +93,7 @@ class ListProduct extends AbstractApiResponder
      *     response="400",
      *     description="Invalid request, check your request"
      * )
+     * @SWG\Tag(name="Product")
      */
     public function listProduct(Request $request)
     {
