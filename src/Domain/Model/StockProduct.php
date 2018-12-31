@@ -27,14 +27,6 @@ class StockProduct extends AbstractModel
     use QuantityTrait;
 
     /**
-     * @var TypeQuantity
-     *
-     * @ORM\ManyToOne(targetEntity="TypeQuantity")
-     * @ORM\JoinColumn(name="type_quantity_id", referencedColumnName="id")
-     */
-    protected $typeQuantity;
-
-    /**
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product")
@@ -45,26 +37,15 @@ class StockProduct extends AbstractModel
     /**
      * StockProduct constructor.
      *
-     * @param float        $quantity
-     * @param TypeQuantity $typeQuantity
-     * @param Product      $product
+     * @param float   $quantity
+     * @param Product $product
      */
     public function __construct(
         float $quantity,
-        TypeQuantity $typeQuantity,
         Product $product
     ) {
         $this->quantity = $quantity;
-        $this->typeQuantity = $typeQuantity;
         $this->product = $product;
-    }
-
-    /**
-     * @return TypeQuantity
-     */
-    public function getTypeQuantity(): TypeQuantity
-    {
-        return $this->typeQuantity;
     }
 
     /**

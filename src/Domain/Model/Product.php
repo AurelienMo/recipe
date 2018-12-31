@@ -44,17 +44,28 @@ class Product extends AbstractModel
     protected $recipes;
 
     /**
+     * @var TypeQuantity
+     *
+     * @ORM\ManyToOne(targetEntity="TypeQuantity")
+     * @ORM\JoinColumn(name="type_quantity_id", referencedColumnName="id")
+     */
+    protected $typeQuantity;
+
+    /**
      * Product constructor.
      *
-     * @param string      $name
-     * @param TypeProduct $typeProduct
+     * @param string       $name
+     * @param TypeProduct  $typeProduct
+     * @param TypeQuantity $typeQuantity
      */
     public function __construct(
         string $name,
-        TypeProduct $typeProduct
+        TypeProduct $typeProduct,
+        TypeQuantity $typeQuantity
     ) {
         $this->name = $name;
         $this->typeProduct = $typeProduct;
+        $this->typeQuantity = $typeQuantity;
         $this->recipes = new ArrayCollection();
     }
 
@@ -72,6 +83,14 @@ class Product extends AbstractModel
     public function getRecipes()
     {
         return $this->recipes;
+    }
+
+    /**
+     * @return TypeQuantity
+     */
+    public function getTypeQuantity(): TypeQuantity
+    {
+        return $this->typeQuantity;
     }
 
     /**

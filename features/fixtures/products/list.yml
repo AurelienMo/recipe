@@ -3,8 +3,8 @@ include:
 
 App\Domain\Model\Product:
     product{1..5}:
-        __construct: ["Product <current()>", "@type_product.fruit_legume"]
+        __construct: ["Product <current()>", "@type_product.fruit_legume", "@typequantity.piece"]
     product{6..10}:
-        __construct: ["Product <current()>", "@type_product.poisson"]
+        __construct: ["Product <current()>", "@type_product.poisson", "@typequantity.kilo_gram"]
     product{11..15}:
-        __construct: ["Product <current()>", "@type_product.boucherie"]
+        __construct: ["Product <current()>", "@type_product.boucherie", "@typequantity.kilo_gram"]
