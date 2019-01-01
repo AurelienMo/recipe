@@ -34,6 +34,4 @@ trait QuantityTrait
     {
         return $this->quantity;
     }
-
-
 }

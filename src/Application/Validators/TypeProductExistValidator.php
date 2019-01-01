@@ -53,6 +53,5 @@ class TypeProductExistValidator extends ConstraintValidator
                               ->addViolation();
             }
         }
-
     }
 }

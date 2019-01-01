@@ -55,5 +55,4 @@ class TypeQuantityExistValidator extends ConstraintValidator
             }
         }
     }
-
 }

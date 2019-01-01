@@ -35,7 +35,8 @@ class ExceptionSubscriber implements EventSubscriberInterface
     /**
      * ExceptionSubscriber constructor.
      *
-     * @param ErrorResponder $errorResponder
+     * @param ErrorResponder  $errorResponder
+     * @param LoggerInterface $logger
      */
     public function __construct(
         ErrorResponder $errorResponder,
@@ -99,5 +100,4 @@ class ExceptionSubscriber implements EventSubscriberInterface
             )
         );
     }
-
 }
