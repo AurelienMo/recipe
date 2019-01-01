@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use App\Application\Helpers\Core\Slugger;
 use App\Domain\Model\Traits\NameTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,6 +43,13 @@ class Product extends AbstractModel
     protected $typeQuantity;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $slug;
+
+    /**
      * Product constructor.
      *
      * @param string       $name
@@ -56,6 +64,7 @@ class Product extends AbstractModel
         $this->name = $name;
         $this->typeProduct = $typeProduct;
         $this->typeQuantity = $typeQuantity;
+        $this->slug = Slugger::slugify($name);
     }
 
     /**
@@ -72,5 +81,13 @@ class Product extends AbstractModel
     public function getTypeQuantity(): TypeQuantity
     {
         return $this->typeQuantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }
