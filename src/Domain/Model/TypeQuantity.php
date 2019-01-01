@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class TypeQuantity
  *
  * @ORM\Table(name="amo_type_quantity")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Domain\Repository\TypeQuantityRepository")
  */
 class TypeQuantity extends AbstractModel
 {

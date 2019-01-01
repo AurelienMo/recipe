@@ -36,6 +36,25 @@ nelmio_api_doc:
                     names:
                         type: array
                         required: true
+            AddProductOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    name:
+                        type: string
+                        required: true
+                    slug:
+                        type: string
+                        required: true
+                    typeProduct:
+                        type: integer
+                        required: true
+                    typeQuantity:
+                        type: integer
+                        required: true
+
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

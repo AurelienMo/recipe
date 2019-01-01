@@ -16,26 +16,17 @@ namespace App\Domain\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class TypeProductRepository
+ * Class TypeQuantityRepository
  */
-class TypeProductRepository extends EntityRepository
+class TypeQuantityRepository extends EntityRepository
 {
-    public function loadAllTypesProduct()
-    {
-        return $this->createQueryBuilder('tp')
-                    ->setCacheable(true)
-                    ->getQuery()
-                    ->getResult();
-    }
-
-
     public function findByFilters(array $filters)
     {
-        $query = $this->createQueryBuilder('tp');
+        $query = $this->createQueryBuilder('tq');
 
         foreach ($filters as $field => $value) {
             $query
-                ->andWhere("tp.$field = $value");
+                ->andWhere("tq.$field = $value");
         }
 
         return $query->getQuery()->getResult();
