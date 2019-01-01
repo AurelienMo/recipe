@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Model\Traits\NameTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,24 +41,14 @@ class Recipe extends AbstractModel
      */
     protected $typeRecipe;
 
-    /**
-     * @var Product[]|Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Product", inversedBy="recipes")
-     * @ORM\JoinTable(name="amo_recipe_has_product")
-     */
-    protected $products;
-
     public function __construct(
         string $name,
         ?int $preparationTime,
-        TypeRecipe $typeRecipe,
-        array $products = []
+        TypeRecipe $typeRecipe
     ) {
         $this->name = $name;
         $this->typeRecipe = $typeRecipe;
         $this->preparationTime = $preparationTime;
-        $this->products = new ArrayCollection($products);
     }
 
     /**
@@ -77,35 +65,5 @@ class Recipe extends AbstractModel
     public function getTypeRecipe(): TypeRecipe
     {
         return $this->typeRecipe;
-    }
-
-    /**
-     * @return Product[]|Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param Product $product
-     *
-     * @return $this
-     */
-    public function addProductToRecipe(Product $product)
-    {
-        $product->addRecipeWithProduct($this);
-        $this->products->add($product);
-
-        return $this;
-    }
-
-    /**
-     * @param Product $product
-     */
-    public function removeProductToRecipe(Product $product)
-    {
-        $product->removeRecipeWithProduct($this);
-        $this->products->removeElement($product);
     }
 }

@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Model\Traits\NameTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,14 +33,6 @@ class Product extends AbstractModel
      * @ORM\JoinColumn(name="type_product_id", referencedColumnName="id")
      */
     protected $typeProduct;
-
-    /**
-     * @var Recipe[]|Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Recipe", mappedBy="products")
-     */
-    protected $recipes;
-
     /**
      * @var TypeQuantity
      *
@@ -66,7 +56,6 @@ class Product extends AbstractModel
         $this->name = $name;
         $this->typeProduct = $typeProduct;
         $this->typeQuantity = $typeQuantity;
-        $this->recipes = new ArrayCollection();
     }
 
     /**
@@ -78,40 +67,10 @@ class Product extends AbstractModel
     }
 
     /**
-     * @return Recipe[]|Collection
-     */
-    public function getRecipes()
-    {
-        return $this->recipes;
-    }
-
-    /**
      * @return TypeQuantity
      */
     public function getTypeQuantity(): TypeQuantity
     {
         return $this->typeQuantity;
     }
-
-    /**
-     * @param Recipe $recipe
-     *
-     * @return $this
-     */
-    public function addRecipeWithProduct(Recipe $recipe)
-    {
-        $this->recipes->add($recipe);
-
-        return $this;
-    }
-
-    /**
-     * @param Recipe $recipe
-     */
-    public function removeRecipeWithProduct(Recipe $recipe)
-    {
-        $this->recipes->removeElement($recipe);
-    }
-
-
 }
