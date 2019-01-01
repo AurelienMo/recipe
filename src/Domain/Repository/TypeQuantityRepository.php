@@ -22,11 +22,12 @@ class TypeQuantityRepository extends EntityRepository
 {
     public function findByFilters(array $filters)
     {
-        $query = $this->createQueryBuilder('tq');
+        $query = $this->createQueryBuilder('tp');
 
         foreach ($filters as $field => $value) {
             $query
-                ->andWhere("tq.$field = $value");
+                ->andWhere("tp.{$field} = :value")
+                ->setParameter('value', $value);
         }
 
         return $query->getQuery()->getResult();

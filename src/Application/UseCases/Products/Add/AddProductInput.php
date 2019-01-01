@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCases\Products\Add;
 
+use App\Application\UseCases\InputInterface;
 use App\Application\Validators\TypeProductExist;
 use App\Application\Validators\TypeQuantityExist;
 use App\Application\Validators\UniqueEntityInput;
@@ -23,15 +24,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntityInput(
  *     class="App\Domain\Model\Product",
- *     fields={"name"}
+ *     fields={"name"},
+ *     message="Ce produit existe déjà en base de donnée."
  * )
  */
-class AddProductInput
+class AddProductInput implements InputInterface
 {
     /**
      * Product's name to add
      *
      * @var string|null
+     *
+     * @Assert\NotBlank(
+     *     message="Vous devez spécifier un nom de produit."
+     * )
      */
     protected $name;
 

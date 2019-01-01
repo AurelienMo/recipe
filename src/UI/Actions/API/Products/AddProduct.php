@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace App\UI\Actions\API\Products;
 
+use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\Products\Add\AddProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
+use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +28,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AddProduct extends AbstractApiResponder
 {
+    /** @var AddProductRequestHandler */
+    private $requestHandler;
+
+    public function __construct(
+        JsonResponder $responder,
+        AddProductRequestHandler $requestHandler
+    ) {
+        $this->requestHandler = $requestHandler;
+        parent::__construct($responder);
+    }
+
     /**
      * Add a product to database product
      *
@@ -32,7 +46,10 @@ class AddProduct extends AbstractApiResponder
      *
      * @param Request $request
      *
-     * @return Response
+     * @return void
+     *
+     * @throws ValidatorException
+     * @throws \ReflectionException
      *
      * @SWG\Parameter(
      *     in="body",
@@ -59,5 +76,7 @@ class AddProduct extends AbstractApiResponder
      */
     public function add(Request $request)
     {
+        $input = $this->requestHandler->handle($request);
+        exit;
     }
 }

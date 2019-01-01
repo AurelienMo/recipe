@@ -35,7 +35,8 @@ class TypeProductRepository extends EntityRepository
 
         foreach ($filters as $field => $value) {
             $query
-                ->andWhere("tp.$field = $value");
+                ->andWhere("tp.{$field} = :value")
+                ->setParameter('value', $value);
         }
 
         return $query->getQuery()->getResult();

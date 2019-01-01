@@ -41,16 +41,18 @@ class TypeQuantityExistValidator extends ConstraintValidator
         $value,
         Constraint $constraint
     ) {
-        $typeQuantity = $this->entityManager->getRepository(TypeQuantity::class)
-                                            ->findByFilters(
-                                                [
-                                                    'id' => $value,
-                                                ]
-                                            );
+        if (!\is_null($value)) {
+            $typeQuantity = $this->entityManager->getRepository(TypeQuantity::class)
+                                                ->findByFilters(
+                                                    [
+                                                        'id' => $value,
+                                                    ]
+                                                );
 
-        if (!$typeQuantity) {
-            $this->context->buildViolation($constraint->message)
-                          ->addViolation();
+            if (empty($typeQuantity)) {
+                $this->context->buildViolation($constraint->message)
+                              ->addViolation();
+            }
         }
     }
 
