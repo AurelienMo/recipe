@@ -68,3 +68,24 @@ Feature: I need to be able to add a product
         ]
     }
     """
+
+  Scenario: [Success] Submit request with good datas
+    When I send a "POST" request to "/api/products" with body:
+    """
+    {
+        "name": "Product 16",
+        "typeProduct": 1,
+        "typeQuantity": 1
+    }
+    """
+    Then the response status code should be 201
+    And the JSON should be equal to:
+    """
+    {
+        "id": 6,
+        "name": "Product 16",
+        "slug": "product-16",
+        "typeProduct": 1,
+        "typeQuantity": 1
+    }
+    """

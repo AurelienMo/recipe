@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\UI\Actions\API\Products;
 
 use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\Products\Add\AddProductPersister;
 use App\Application\UseCases\Products\Add\AddProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
@@ -31,11 +32,16 @@ class AddProduct extends AbstractApiResponder
     /** @var AddProductRequestHandler */
     private $requestHandler;
 
+    /** @var AddProductPersister */
+    private $persister;
+
     public function __construct(
         JsonResponder $responder,
-        AddProductRequestHandler $requestHandler
+        AddProductRequestHandler $requestHandler,
+        AddProductPersister $persister
     ) {
         $this->requestHandler = $requestHandler;
+        $this->persister = $persister;
         parent::__construct($responder);
     }
 
@@ -46,7 +52,7 @@ class AddProduct extends AbstractApiResponder
      *
      * @param Request $request
      *
-     * @return void
+     * @return Response
      *
      * @throws ValidatorException
      * @throws \ReflectionException
@@ -77,6 +83,8 @@ class AddProduct extends AbstractApiResponder
     public function add(Request $request)
     {
         $input = $this->requestHandler->handle($request);
-        exit;
+        $output = $this->persister->save($input);
+
+        return $this->sendResponse($output, Response::HTTP_CREATED);
     }
 }
