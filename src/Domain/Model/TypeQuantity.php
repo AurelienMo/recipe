@@ -18,19 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class TypeQuantity
- *
- * @ORM\Table(name="amo_type_quantity")
- * @ORM\Entity(repositoryClass="App\Domain\Repository\TypeQuantityRepository")
  */
 class TypeQuantity extends AbstractModel
 {
     use NameTrait;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
+    /** @var string */
     protected $shortName;
 
     /**

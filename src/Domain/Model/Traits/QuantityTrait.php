@@ -13,18 +13,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Trait QuantityTrait
  */
 trait QuantityTrait
 {
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float")
-     */
+    /** @var float */
     protected $quantity;
 
     /**

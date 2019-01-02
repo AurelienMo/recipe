@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Model\ProductRecipe" table="amo_product_recipe">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="createdAt" type="datetime" nullable="false"/>
+        <field name="updatedAt" type="datetime" nullable="true"/>
+        <field name="quantity" type="float" nullable="false"/>
+
+        <many-to-one field="typeQuantity" target-entity="App\Domain\Model\TypeQuantity">
+            <join-column name="type_quantity_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="product" target-entity="App\Domain\Model\Product">
+            <join-column name="product_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="recipe" target-entity="App\Domain\Model\Recipe">
+            <join-column name="recipe_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

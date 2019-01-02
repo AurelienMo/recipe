@@ -18,20 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class StockProduct
- *
- * @ORM\Table(name="amo_stock_product")
- * @ORM\Entity()
  */
 class StockProduct extends AbstractModel
 {
     use QuantityTrait;
 
-    /**
-     * @var Product
-     *
-     * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     */
+    /** @var Product */
     protected $product;
 
     /**

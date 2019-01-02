@@ -18,36 +18,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class ProductRecipe
- *
- * @ORM\Table(name="amo_product_recipe")
- * @ORM\Entity()
  */
 class ProductRecipe extends AbstractModel
 {
     use QuantityTrait;
 
-    /**
-     * @var TypeQuantity
-     *
-     * @ORM\ManyToOne(targetEntity="TypeQuantity")
-     * @ORM\JoinColumn(name="type_quantity_id", referencedColumnName="id")
-     */
+    /** @var TypeQuantity */
     protected $typeQuantity;
 
-    /**
-     * @var Product
-     *
-     * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     */
+    /** @var Product */
     protected $product;
 
-    /**
-     * @var Recipe
-     *
-     * @ORM\ManyToOne(targetEntity="Recipe")
-     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id")
-     */
+    /** @var Recipe */
     protected $recipe;
 
     /**

@@ -20,34 +20,18 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Product
- *
- * @ORM\Table(name="amo_product")
- * @ORM\Entity(repositoryClass="App\Domain\Repository\ProductRepository")
  */
 class Product extends AbstractModel
 {
     use NameTrait;
 
-    /**
-     * @var TypeProduct
-     *
-     * @ORM\ManyToOne(targetEntity="TypeProduct")
-     * @ORM\JoinColumn(name="type_product_id", referencedColumnName="id")
-     */
+    /** @var TypeProduct */
     protected $typeProduct;
-    /**
-     * @var TypeQuantity
-     *
-     * @ORM\ManyToOne(targetEntity="TypeQuantity")
-     * @ORM\JoinColumn(name="type_quantity_id", referencedColumnName="id")
-     */
+
+    /** @var TypeQuantity */
     protected $typeQuantity;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false)
-     */
+    /** @var string */
     protected $slug;
 
     /**

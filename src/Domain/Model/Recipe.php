@@ -18,27 +18,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Recipe
- *
- * @ORM\Table(name="amo_recipe")
- * @ORM\Entity()
  */
 class Recipe extends AbstractModel
 {
     use NameTrait;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @var int|null */
     protected $preparationTime;
 
-    /**
-     * @var TypeRecipe
-     *
-     * @ORM\ManyToOne(targetEntity="TypeRecipe")
-     * @ORM\JoinColumn(name="type_recipe_id", referencedColumnName="id")
-     */
+    /** @var TypeRecipe */
     protected $typeRecipe;
 
     public function __construct(

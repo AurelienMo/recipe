@@ -17,32 +17,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class StepRecipe
- *
- * @ORM\Table(name="amo_step_recipe")
- * @ORM\Entity()
  */
 class StepRecipe extends AbstractModel
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
     protected $number;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
+    /** @var string */
     protected $description;
 
-    /**
-     * @var Recipe
-     *
-     * @ORM\ManyToOne(targetEntity="Recipe")
-     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id")
-     */
+    /** @var Recipe */
     protected $recipe;
 
     /**

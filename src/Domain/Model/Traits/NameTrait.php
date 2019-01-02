@@ -13,18 +13,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Trait NameTrait
  */
 trait NameTrait
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
+    /** @var string */
     protected $name;
 
     /**

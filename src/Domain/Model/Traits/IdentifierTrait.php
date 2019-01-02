@@ -13,20 +13,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Trait IdentifierTrait
  */
 trait IdentifierTrait
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    /** @var int */
     protected $id;
 
     /**

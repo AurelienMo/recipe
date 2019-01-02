@@ -18,9 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class TypeRecipe
- *
- * @ORM\Table(name="amo_type_recipe")
- * @ORM\Entity()
  */
 class TypeRecipe extends AbstractModel
 {

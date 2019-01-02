@@ -18,9 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class TypeProduct
- *
- * @ORM\Table(name="amo_type_product")
- * @ORM\Entity(repositoryClass="App\Domain\Repository\TypeProductRepository")
  */
 class TypeProduct extends AbstractModel
 {
