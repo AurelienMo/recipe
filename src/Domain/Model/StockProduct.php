@@ -26,6 +26,9 @@ class StockProduct extends AbstractModel
     /** @var Product */
     protected $product;
 
+    /** @var Group */
+    protected $group;
+
     /**
      * StockProduct constructor.
      *
@@ -34,10 +37,12 @@ class StockProduct extends AbstractModel
      */
     public function __construct(
         float $quantity,
-        Product $product
+        Product $product,
+        Group $group
     ) {
         $this->quantity = $quantity;
         $this->product = $product;
+        $this->group = $group;
     }
 
     /**
@@ -46,5 +51,13 @@ class StockProduct extends AbstractModel
     public function getProduct(): Product
     {
         return $this->product;
+    }
+
+    /**
+     * @return Group
+     */
+    public function getGroup(): Group
+    {
+        return $this->group;
     }
 }
