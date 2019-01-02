@@ -36,12 +36,7 @@ class AddProductPersister extends AbstractPersister
      */
     public function save(InputInterface $input): ?OutputInterface
     {
-        $typeProduct = $this->getRepository(TypeProduct::class)
-                            ->findByFilters(['id' => $input->getTypeProduct()]);
-        $typeQuantity = $this->getRepository(TypeQuantity::class)
-                             ->findByFilters(['id' => $input->getTypeQuantity()]);
-
-        $product = ProductBuilder::build($input->getName(), $typeProduct[0], $typeQuantity[0]);
+        $product = ProductBuilder::build($input->getName(), $input->getTypeProductObject(), $input->getTypeQuantityObject());
 
         try {
             $this->entityManager->persist($product);
