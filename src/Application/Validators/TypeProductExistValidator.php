@@ -51,6 +51,10 @@ class TypeProductExistValidator extends ConstraintValidator
             if (empty($typeProduct)) {
                 $this->context->buildViolation($constraint->message)
                               ->addViolation();
+            } else {
+                if (method_exists($this->context->getObject(), 'setTypeProduct')) {
+                    $this->context->getObject()->setTypeProductObject($typeProduct[0]);
+                }
             }
         }
     }

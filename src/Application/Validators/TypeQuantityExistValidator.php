@@ -52,6 +52,10 @@ class TypeQuantityExistValidator extends ConstraintValidator
             if (empty($typeQuantity)) {
                 $this->context->buildViolation($constraint->message)
                               ->addViolation();
+            } else {
+                if (method_exists($this->context->getObject(), 'setTypeQuantityObject')) {
+                    $this->context->getObject()->setTypeQuantityObject($typeQuantity[0]);
+                }
             }
         }
     }

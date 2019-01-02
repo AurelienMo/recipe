@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Application\Helpers\Core\Slugger;
+use App\Application\UseCases\Products\Update\UpdateProductInput;
 use App\Domain\Model\Traits\NameTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -89,5 +90,30 @@ class Product extends AbstractModel
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    /**
+     * @param UpdateProductInput $input
+     *
+     * @return bool
+     */
+    public function updateDatas(UpdateProductInput $input)
+    {
+        $isUpdated = false;
+        if ($input->getName() && $input->getName() !== $this->name) {
+            $this->name = $input->getName();
+            $this->slug = Slugger::slugify($input->getName());
+            $isUpdated = true;
+        }
+        if ($input->getTypeProductObject() && $input->getTypeProductObject() !== $this->getTypeProduct()) {
+            $this->typeProduct = $input->getTypeProductObject();
+            $isUpdated = true;
+        }
+        if ($input->getTypeQuantityObject() && $input->getTypeQuantityObject() !== $this->getTypeQuantity()) {
+            $this->typeQuantity = $input->getTypeQuantityObject();
+            $isUpdated = true;
+        }
+
+        return $isUpdated;
     }
 }

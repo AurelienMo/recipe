@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Class ProductRepository
@@ -37,4 +39,20 @@ class ProductRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function loadById(int $id)
+    {
+        return $this->createQueryBuilder('p')
+                    ->where('p.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
 }
