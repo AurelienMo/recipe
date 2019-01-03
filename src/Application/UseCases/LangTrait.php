@@ -26,9 +26,6 @@ trait LangTrait
      * @var string
      *
      * @Assert\Choice(choices={"fr", "en"})
-     * @Assert\NotBlank(
-     *     message="Language is required"
-     * )
      */
     protected $lang;
 

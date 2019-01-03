@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Model\Traits\QuantityTrait;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class StockProduct
@@ -26,19 +25,20 @@ class StockProduct extends AbstractModel
     /** @var Product */
     protected $product;
 
-    /** @var Group */
+    /** @var GroupUser */
     protected $group;
 
     /**
      * StockProduct constructor.
      *
-     * @param float   $quantity
-     * @param Product $product
+     * @param float     $quantity
+     * @param Product   $product
+     * @param GroupUser $group
      */
     public function __construct(
         float $quantity,
         Product $product,
-        Group $group
+        GroupUser $group
     ) {
         $this->quantity = $quantity;
         $this->product = $product;
@@ -54,9 +54,9 @@ class StockProduct extends AbstractModel
     }
 
     /**
-     * @return Group
+     * @return GroupUser
      */
-    public function getGroup(): Group
+    public function getGroup(): GroupUser
     {
         return $this->group;
     }

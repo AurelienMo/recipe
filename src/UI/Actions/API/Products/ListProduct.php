@@ -18,7 +18,7 @@ use App\Application\UseCases\Products\ListWithFilter\ListRequestHandler;
 use App\Application\UseCases\Products\ListWithFilter\Loader;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
-use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,13 +65,6 @@ class ListProduct extends AbstractApiResponder
      * @throws ValidatorException
      *
      * @SWG\Parameter(
-     *     name="lang",
-     *     type="string",
-     *     in="query",
-     *     description="Targeted language. `fr` or `en` allowed",
-     *     required=true
-     * )
-     * @SWG\Parameter(
      *     name="typesProduct",
      *     type="string",
      *     in="query",
@@ -94,6 +87,8 @@ class ListProduct extends AbstractApiResponder
      *     description="Invalid request, check your request"
      * )
      * @SWG\Tag(name="Product")
+     *
+     * @Security(name="Bearer")
      */
     public function listProduct(Request $request)
     {

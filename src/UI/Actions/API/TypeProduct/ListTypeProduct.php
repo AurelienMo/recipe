@@ -18,6 +18,7 @@ use App\Application\UseCases\Common\LanguageRequestHandler;
 use App\Application\UseCases\TypesProduct\ListTypeProduct\Loader;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,13 +64,6 @@ class ListTypeProduct extends AbstractApiResponder
      * @throws ValidatorException
      * @throws \ReflectionException
      *
-     * @SWG\Parameter(
-     *     in="query",
-     *     name="lang",
-     *     type="string",
-     *     description="Targeted language. `fr` or `en` allowed.",
-     *     required=true
-     * )
      * @SWG\Response(
      *     response="200",
      *     description="Successful list product's type",
@@ -82,6 +76,7 @@ class ListTypeProduct extends AbstractApiResponder
      *     description="Bad request. Check your request"
      * )
      * @SWG\Tag(name="Product Type")
+     * @Security(name="Bearer")
      */
     public function listTypeProduct(Request $request)
     {

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Domain\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class TypeQuantityRepository
@@ -31,5 +32,26 @@ class TypeQuantityRepository extends EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     *
+     * @throws NonUniqueResultException
+     */
+    public function existById(int $id)
+    {
+        $qb = $this->createQueryBuilder('tq')
+                   ->select('COUNT(tq)')
+                   ->where('tq.id = :id')
+                   ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(true, 3600, sprintf('type_quantity_%s', $id));
+
+        return $query->getSingleScalarResult();
     }
 }

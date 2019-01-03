@@ -1,5 +1,7 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: ROLE_USER
     encoders:
         App\Domain\Model\User:
             algorithm: bcrypt

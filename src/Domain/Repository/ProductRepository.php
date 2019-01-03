@@ -29,15 +29,19 @@ class ProductRepository extends EntityRepository
      */
     public function loadProductsAccordingParameter(?array $typeProducts)
     {
-        $query = $this->createQueryBuilder('p');
+        $qb = $this->createQueryBuilder('p');
 
         if (!empty($typeProducts)) {
-            $query
+            $qb
                 ->where('p.typeProduct IN (:typeProductIds)')
                 ->setParameter('typeProductIds', array_values($typeProducts));
         }
 
-        return $query->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(true, 30);
+
+        return $query->getResult();
     }
 
     /**

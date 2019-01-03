@@ -19,6 +19,7 @@ use App\Application\UseCases\Products\Update\UpdateProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,6 +88,7 @@ class UpdateProduct extends AbstractApiResponder
      *     description="Bad request. Check your request."
      * )
      * @SWG\Tag(name="Product")
+     * @Security(name="Bearer")
      */
     public function update(Request $request)
     {

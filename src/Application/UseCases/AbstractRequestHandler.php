@@ -71,7 +71,7 @@ abstract class AbstractRequestHandler
             $input = $this->instanciateInputClass();
         }
         if (method_exists($input, 'setLang')) {
-            $input->setLang($request->query->get('lang') ?? null);
+            $input->setLang($request->query->get('lang') ?? 'fr');
         }
 
         $this->validate($input);

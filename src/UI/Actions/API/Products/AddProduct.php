@@ -19,6 +19,7 @@ use App\Application\UseCases\Products\Add\AddProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,6 +80,7 @@ class AddProduct extends AbstractApiResponder
      *     description="Bad request. Please check your credentials"
      * )
      * @SWG\Tag(name="Product")
+     * @Security(name="Bearer")
      */
     public function add(Request $request)
     {

@@ -25,7 +25,7 @@ class LanguageRequestHandler extends AbstractRequestHandler
     public function handle(Request $request): InputInterface
     {
         $input = $this->instanciateInputClass();
-        $input->setLang($request->query->get('lang') ?? null);
+        $input->setLang($request->query->get('lang') ?? 'fr');
 
         $this->validate($input);
 

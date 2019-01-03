@@ -5,6 +5,13 @@ nelmio_api_doc:
             title: Recipe App
             description: App to manage stock and decision to prepare launch
             version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value should be : Bearer {Access token eventually get by /api/login_check}'
+                name: Authorization
+                in: header
+                default: 'Bearer '
         definitions:
             ListProductOutput:
                 type: array
@@ -55,6 +62,8 @@ nelmio_api_doc:
                         type: integer
                         required: true
 
+
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+            - ^/api/login_check

@@ -17,9 +17,6 @@ use App\Application\UseCases\InputInterface;
 use App\Application\Validators\TypeProductExist;
 use App\Application\Validators\TypeQuantityExist;
 use App\Application\Validators\UniqueEntityInput;
-use App\Domain\Model\TypeProduct;
-use App\Domain\Model\TypeQuantity;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -69,16 +66,6 @@ class AddProductInput implements InputInterface
     protected $typeQuantity;
 
     /**
-     * @var TypeProduct
-     */
-    protected $typeProductObject;
-
-    /**
-     * @var TypeQuantity
-     */
-    protected $typeQuantityObject;
-
-    /**
      * @return string|null
      */
     public function getName(): ?string
@@ -124,37 +111,5 @@ class AddProductInput implements InputInterface
     public function setTypeQuantity(?int $typeQuantity): void
     {
         $this->typeQuantity = $typeQuantity;
-    }
-
-    /**
-     * @return TypeProduct
-     */
-    public function getTypeProductObject(): TypeProduct
-    {
-        return $this->typeProductObject;
-    }
-
-    /**
-     * @param TypeProduct $typeProductObject
-     */
-    public function setTypeProductObject(TypeProduct $typeProductObject): void
-    {
-        $this->typeProductObject = $typeProductObject;
-    }
-
-    /**
-     * @return TypeQuantity
-     */
-    public function getTypeQuantityObject(): TypeQuantity
-    {
-        return $this->typeQuantityObject;
-    }
-
-    /**
-     * @param TypeQuantity $typeQuantityObject
-     */
-    public function setTypeQuantityObject(TypeQuantity $typeQuantityObject): void
-    {
-        $this->typeQuantityObject = $typeQuantityObject;
     }
 }

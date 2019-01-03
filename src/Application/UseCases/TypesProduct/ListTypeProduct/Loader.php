@@ -29,7 +29,7 @@ class Loader extends AbstractLoader
     {
         $typesProduct = $this->getRepository()->loadAllTypesProduct();
 
-        return $this->buildOutput($typesProduct, $input->getLang());
+        return $this->buildOutput($typesProduct);
     }
 
     protected function getClassRepository(): string
@@ -37,7 +37,7 @@ class Loader extends AbstractLoader
         return TypeProduct::class;
     }
 
-    private function buildOutput(array $typesProduct, string $lang)
+    private function buildOutput(array $typesProduct)
     {
         $output = new ListTypesProductOutput();
         /** @var TypeProduct $item */

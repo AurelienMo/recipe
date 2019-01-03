@@ -1,4 +1,4 @@
 controllers:
-    resource: ../../src/UI/Actions/
+    resource: ../../src/UI/Actions/API
     type: annotation
     prefix: /api
