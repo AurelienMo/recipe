@@ -44,25 +44,27 @@ class User extends AbstractModel implements UserInterface
     /**
      * User constructor.
      *
-     * @param string $firstname
-     * @param string $lastname
-     * @param string $username
-     * @param string $email
-     * @param string $password
+     * @param string      $firstname
+     * @param string      $lastname
+     * @param string      $username
+     * @param string      $email
+     * @param string      $password
+     * @param string|null $role
      */
     public function __construct(
         string $firstname,
         string $lastname,
         string $username,
         string $email,
-        string $password
+        string $password,
+        ?string $role = null
     ) {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->roles[] = 'ROLE_USER';
+        $this->roles[] = $role ?? 'ROLE_USER';
     }
 
     public function getRoles()

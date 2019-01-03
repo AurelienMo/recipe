@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\Tools\SchemaTool;
 use Nelmio\Alice\Loader\NativeLoader;
@@ -73,14 +74,14 @@ class DoctrineContext implements Context
         $loader = new NativeLoader();
         $objectSet = $loader->loadFile(__DIR__.'/../fixtures/'.$file);
         foreach ($objectSet->getObjects() as $object) {
-            if ($object instanceof UserInterface) {
+            if ($object instanceof User) {
                 $user = new User(
                     $object->getFirstname(),
                     $object->getLastname(),
                     $object->getUsername(),
                     $object->getEmail(),
                     $this->passwordEncoder->encodePassword($object, $object->getPassword()),
-                    $object->getTokenActivation()
+                    $object->getRoles()[0]
                 );
                 $this->doctrine->getManager()->persist($user);
 

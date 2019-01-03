@@ -28,6 +28,24 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    App\Application\Listeners\JWT\JWTAuthFailure:
+        class: App\Application\Listeners\JWT\JWTAuthFailure
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_failure, method: onAuthenticationFailureResponse }
 
+    App\Application\Listeners\JWT\JWTInvalid:
+        class: App\Application\Listeners\JWT\JWTInvalid
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_invalid, method: onJWTInvalid }
+
+    App\Application\Listeners\JWT\JWTNotFound:
+        class: App\Application\Listeners\JWT\JWTNotFound
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }
+
+    App\Application\Listeners\JWT\JWTExpired:
+        class: App\Application\Listeners\JWT\JWTExpired
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_expired, method: onJWTExpired }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

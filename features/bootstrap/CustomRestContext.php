@@ -54,6 +54,8 @@ class CustomRestContext extends RestContext
             ['CONTENT_TYPE' => 'application/json']
         );
         $datas = json_decode($requestLogin->getContent(), true);
+        dump($datas);
+        exit;
         $response = $this->request->send(
             $arg5,
             $this->locatePath($arg6),
@@ -67,6 +69,26 @@ class CustomRestContext extends RestContext
         );
 
         return $response;
+    }
+
+    /**
+     * @When Send auth request with method :arg1 request to :arg2 with username :arg3 and password :arg4
+     */
+    public function sendARequestToWithBody($arg1, $arg2, $arg3, $arg4)
+    {
+        $requestLogin = $this->request->send(
+            $arg1,
+            $this->locatePath($arg2),
+            [],
+            [],
+            json_encode([
+                            'username' => $arg3,
+                            'password' => (string) $arg4,
+                        ]),
+            ['CONTENT_TYPE' => 'application/json']
+        );
+
+        return $requestLogin->getContent();
     }
 
 }
