@@ -34,6 +34,10 @@
                 <source>type_quantity.clove.name</source>
                 <target>Gousse</target>
             </trans-unit>
+            <trans-unit id="type_quantity.piece.name">
+                <source>type_quantity.piece.name</source>
+                <target>Pièce</target>
+            </trans-unit>
             <trans-unit id="type_recipe.starter.name">
                 <source>type_quantity.starter.name</source>
                 <target>Entrée</target>

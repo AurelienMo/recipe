@@ -65,4 +65,15 @@ class TypeQuantityRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    public function loadAllTypesQuantity()
+    {
+        $qb = $this->createQueryBuilder('tq');
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(true, 3600, 'list_type_quantity');
+
+        return $query->getResult();
+    }
 }

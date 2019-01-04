@@ -61,6 +61,19 @@ nelmio_api_doc:
                     typeQuantity:
                         type: integer
                         required: true
+            ListTypeQuantityOutput:
+                type: array
+                items:
+                    $ref: "#/definitions/QuantityTypeItemOutput"
+            QuantityTypeItemOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    names:
+                        type: array
+                        required: true
 
 
     areas: # to filter documented areas

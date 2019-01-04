@@ -24,6 +24,7 @@ class TypeQuantityListener extends AbstractModelListener
     {
         return [
             'detail_type_quantity_',
+            'list_type_quantity',
         ];
     }
 
