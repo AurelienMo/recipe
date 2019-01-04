@@ -1,13 +1,15 @@
 @api
 @api_products
+@api_products_add
 
 Feature: I need to be able to add a product
 
   Background:
     Given I load following file "products/add.yml"
+    And I load following file "security/user.yml"
 
   Scenario: [Fail] Submit request with empty payload
-    When I send a "POST" request to "/api/products" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/products" with body:
     """
     {
     }
@@ -29,7 +31,7 @@ Feature: I need to be able to add a product
     """
 
   Scenario: [Fail] Submit request with already exist product
-    When I send a "POST" request to "/api/products" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/products" with body:
     """
     {
         "name": "Product 1",
@@ -48,7 +50,7 @@ Feature: I need to be able to add a product
     """
 
   Scenario: [Fail] Submit request with not found type product and not found type quantity
-    When I send a "POST" request to "/api/products" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/products" with body:
     """
     {
         "name": "Product 15",
@@ -70,7 +72,7 @@ Feature: I need to be able to add a product
     """
 
   Scenario: [Success] Submit request with good datas
-    When I send a "POST" request to "/api/products" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/products" with body:
     """
     {
         "name": "Product 16",

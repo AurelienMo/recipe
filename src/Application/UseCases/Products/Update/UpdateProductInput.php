@@ -64,21 +64,6 @@ class UpdateProductInput implements InputInterface
     protected $productId;
 
     /**
-     * @var Product
-     */
-    protected $product;
-
-    /**
-     * @var TypeProduct
-     */
-    protected $typeProductObject;
-
-    /**
-     * @var TypeQuantity
-     */
-    protected $typeQuantityObject;
-
-    /**
      * @return string|null
      */
     public function getName(): ?string
@@ -140,53 +125,5 @@ class UpdateProductInput implements InputInterface
     public function setProductId(int $productId): void
     {
         $this->productId = $productId;
-    }
-
-    /**
-     * @return Product
-     */
-    public function getProduct(): Product
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param Product $product
-     */
-    public function setProduct(Product $product): void
-    {
-        $this->product = $product;
-    }
-
-    /**
-     * @return TypeProduct
-     */
-    public function getTypeProductObject(): ?TypeProduct
-    {
-        return $this->typeProductObject;
-    }
-
-    /**
-     * @param TypeProduct $typeProductObject
-     */
-    public function setTypeProductObject(TypeProduct $typeProductObject): void
-    {
-        $this->typeProductObject = $typeProductObject;
-    }
-
-    /**
-     * @return TypeQuantity
-     */
-    public function getTypeQuantityObject(): ?TypeQuantity
-    {
-        return $this->typeQuantityObject;
-    }
-
-    /**
-     * @param TypeQuantity $typeQuantityObject
-     */
-    public function setTypeQuantityObject(TypeQuantity $typeQuantityObject): void
-    {
-        $this->typeQuantityObject = $typeQuantityObject;
     }
 }

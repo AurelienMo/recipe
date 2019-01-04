@@ -13,23 +13,24 @@ declare(strict_types=1);
 
 namespace App\Application\Listeners\Doctrine\Model;
 
-use App\Domain\Model\TypeProduct;
+use App\Domain\Model\Product;
 
 /**
- * Class TypeProductListener
+ * Class ProductListener
  */
-class TypeProductListener extends AbstractModelListener
+class ProductListener extends AbstractModelListener
 {
     public function getCacheKeys(): array
     {
         return [
-            'list_type_product',
-            'detail_type_product_'
+            'list_product',
+            'list_product_type_product_',
+            'detail_product_id_',
         ];
     }
 
     protected function getClassName(): string
     {
-        return TypeProduct::class;
+        return Product::class;
     }
 }

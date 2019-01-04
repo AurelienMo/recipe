@@ -1,13 +1,15 @@
 @api
 @api_products
+@api_products_update
 
 Feature: I need to be able to request an update on product
 
   Background:
     Given I load following file "products/add.yml"
+    And I load following file "security/user.yml"
 
   Scenario: [Fail] Submit request to update product with invalid typeProduct & invalid typeQuantity
-    When I send a "PUT" request to "/api/products/1" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/products/1" with body:
     """
     {
         "typeProduct": 900,
@@ -28,7 +30,7 @@ Feature: I need to be able to request an update on product
     """
 
   Scenario: [Fail] Submit request to update on invalid product
-    When I send a "PUT" request to "/api/products/49" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/products/49" with body:
     """
     {
         "name": "Product 49"
@@ -45,7 +47,7 @@ Feature: I need to be able to request an update on product
     """
 
   Scenario: [Success] Submit request to update product with name only
-    When I send a "PUT" request to "/api/products/1" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/products/1" with body:
     """
     {
         "name": "Product updated"
@@ -64,7 +66,7 @@ Feature: I need to be able to request an update on product
     """
 
   Scenario: [Success] Submit request to update product with name, product's type and product's type quantity
-    When I send a "PUT" request to "/api/products/1" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/products/1" with body:
     """
     {
         "name": "Product updated",
@@ -85,7 +87,7 @@ Feature: I need to be able to request an update on product
     """
 
   Scenario: [Success] Submit request to update product with same name, same product's type and same product's type quantity
-    When I send a "PUT" request to "/api/products/1" with body:
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/products/1" with body:
     """
     {
         "name": "Product 1",

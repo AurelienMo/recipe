@@ -31,15 +31,18 @@ class ProductRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p');
 
+        $suffixCacheKey = null;
         if (!empty($typeProducts)) {
             $qb
                 ->where('p.typeProduct IN (:typeProductIds)')
                 ->setParameter('typeProductIds', array_values($typeProducts));
+            $suffixCacheKey = sprintf('_type_product_%s', implode('_', array_values($typeProducts)));
         }
 
+        $key = sprintf('list_product%s', $suffixCacheKey);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 30);
+        $query->useResultCache(true, $key === 'list_product' ? 3600 : 30, $key);
 
         return $query->getResult();
     }
@@ -48,15 +51,20 @@ class ProductRepository extends EntityRepository
      * @param int $id
      *
      * @return mixed
+     *
      * @throws NonUniqueResultException
      */
     public function loadById(int $id)
     {
-        return $this->createQueryBuilder('p')
+        $qb = $this->createQueryBuilder('p')
                     ->where('p.id = :id')
-                    ->setParameter('id', $id)
-                    ->getQuery()
-                    ->getOneOrNullResult();
+                    ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(true, 3600, sprintf('detail_product_id_%s', $id));
+
+        return $query->getOneOrNullResult();
     }
 
 }

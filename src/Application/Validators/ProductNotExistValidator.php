@@ -58,8 +58,6 @@ class ProductNotExistValidator extends ConstraintValidator
         if (is_null($product)) {
             $this->context->buildViolation($constraint->message)
                           ->addViolation();
-        } else {
-            $this->context->getObject()->setProduct($product);
         }
 
     }

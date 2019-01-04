@@ -35,15 +35,27 @@ class TypeProductRepository extends EntityRepository
 
     public function findByFilters(array $filters)
     {
-        $query = $this->createQueryBuilder('tp');
+        $qb = $this->createQueryBuilder('tp');
 
+        $suffixCacheKey = null;
         foreach ($filters as $field => $value) {
-            $query
+            $qb
                 ->andWhere("tp.{$field} = :value")
                 ->setParameter('value', $value);
+            $suffixCacheKey .= sprintf('_%s_%s', $field, $value);
         }
 
-        return $query->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(
+            true,
+            3600,
+            $suffixCacheKey ?
+                sprintf('detail_type_product_%s', $suffixCacheKey)
+                : 'detail_type_product_'
+        );
+
+        return $query->getResult();
     }
 
     /**
@@ -61,6 +73,7 @@ class TypeProductRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+        $query->useResultCache(true, 3600, sprintf('detail_type_product_%s', $id));
 
         return $query->getSingleScalarResult();
     }

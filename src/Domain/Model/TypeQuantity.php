@@ -18,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class TypeQuantity
+ *
+ * @ORM\EntityListeners({"App\Application\Listeners\Doctrine\Model\TypeQuantityListener"})
  */
 class TypeQuantity extends AbstractModel
 {

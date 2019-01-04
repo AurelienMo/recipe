@@ -20,6 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Product
+ *
+ * @ORM\EntityListeners("App\Application\Listeners\Doctrine\Model\ProductListener")
  */
 class Product extends AbstractModel
 {
@@ -78,23 +80,28 @@ class Product extends AbstractModel
 
     /**
      * @param UpdateProductInput $input
+     * @param TypeProduct|null   $typeProduct
+     * @param TypeQuantity       $typeQuantity
      *
      * @return bool
      */
-    public function updateDatas(UpdateProductInput $input)
-    {
+    public function updateDatas(
+        UpdateProductInput $input,
+        TypeProduct $typeProduct = null,
+        TypeQuantity $typeQuantity = null
+    ) {
         $isUpdated = false;
         if ($input->getName() && $input->getName() !== $this->name) {
             $this->name = $input->getName();
             $this->slug = Slugger::slugify($input->getName());
             $isUpdated = true;
         }
-        if ($input->getTypeProductObject() && $input->getTypeProductObject() !== $this->getTypeProduct()) {
-            $this->typeProduct = $input->getTypeProductObject();
+        if ($typeProduct && $typeProduct !== $this->getTypeProduct()) {
+            $this->typeProduct = $typeProduct;
             $isUpdated = true;
         }
-        if ($input->getTypeQuantityObject() && $input->getTypeQuantityObject() !== $this->getTypeQuantity()) {
-            $this->typeQuantity = $input->getTypeQuantityObject();
+        if ($typeQuantity && $typeQuantity !== $this->getTypeQuantity()) {
+            $this->typeQuantity = $typeQuantity;
             $isUpdated = true;
         }
 

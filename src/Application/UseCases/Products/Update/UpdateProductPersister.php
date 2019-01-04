@@ -17,6 +17,8 @@ use App\Application\UseCases\AbstractPersister;
 use App\Application\UseCases\InputInterface;
 use App\Application\UseCases\Products\Add\Output\AddProductOutput;
 use App\Domain\Model\Product;
+use App\Domain\Model\TypeProduct;
+use App\Domain\Model\TypeQuantity;
 use App\UI\Responders\OutputInterface;
 
 /**
@@ -31,12 +33,29 @@ class UpdateProductPersister extends AbstractPersister
      */
     public function save(InputInterface $input): ?OutputInterface
     {
-        $result = $input->getProduct()->updateDatas($input);
+        /** @var Product $product */
+        $product = $this->getRepository()->loadById($input->getProductId());
+        $typeProduct = null;
+        $typeQuantity = null;
+        if ($input->getTypeProduct()) {
+            $typeProduct = $this->getRepository(TypeProduct::class)
+                                ->findByFilters(['id' => $input->getTypeProduct()]);
+        }
+        if ($input->getTypeQuantity()) {
+            $typeQuantity = $this->getRepository(TypeQuantity::class)
+                                ->findByFilters(['id' => $input->getTypeQuantity()]);
+        }
+
+        $result = $product->updateDatas(
+            $input,
+            $typeProduct[0] ?? null ,
+            $typeQuantity[0] ?? null
+        );
 
         if ($result) {
             $this->entityManager->flush();
 
-            return $this->buildOutput($input->getProduct(), $input);
+            return $this->buildOutput($product, $input);
         }
 
         return null;

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Application\Listeners\Doctrine\Model;
 
-use App\Domain\Model\AbstractModel;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Predis\Client;
 
@@ -36,31 +35,58 @@ abstract class AbstractModelListener
         $this->cacheDriver = $cacheDriver;
     }
 
-    public function postPersist(AbstractModel $model, LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args)
     {
-        foreach ($this->getCacheKeys() as $key) {
-            $this->cacheDriver->expire(sprintf('[%s][1]', $key), 0);
+        $className = $this->getClassName();
+        if ($args->getEntity() instanceof $className) {
+            $this->processReinitTtl();
         }
     }
 
-    public function postUpdate(AbstractModel $model, LifecycleEventArgs $args)
+    public function postUpdate(LifecycleEventArgs $args)
     {
-        foreach ($this->getCacheKeys() as $key) {
-            $this->cacheDriver->expire(sprintf('[%s][1]', $key), 0);
+        $className = $this->getClassName();
+        if ($args->getEntity() instanceof $className) {
+            $this->processReinitTtl();
         }
     }
 
-    public function postRemove(AbstractModel $model, LifecycleEventArgs $args)
+    public function postRemove(LifecycleEventArgs $args)
     {
-        foreach ($this->getCacheKeys() as $key) {
-            $this->cacheDriver->expire(sprintf('[%s][1]', $key), 0);
+        $className = $this->getClassName();
+        if ($args->getEntity() instanceof $className) {
+            $this->processReinitTtl();
         }
     }
+
+    public function processReinitTtl()
+    {
+        foreach ($this->getCacheKeys() as $cacheKey) {
+            foreach ($this->getAllKeys() as $redisKey) {
+                if (strstr($redisKey, $cacheKey)) {
+                    $this->cacheDriver->expire($redisKey, 0);
+                }
+            }
+        }
+    }
+
+
+    public function getAllKeys()
+    {
+        return $this->cacheDriver->keys('*');
+    }
+
+    /**
+     * Return entity class name
+     *
+     * @return string
+     */
+    abstract protected function getClassName(): string;
 
     /**
      * Return list keys to clear cache Redis.
      *
      * @return array
      */
-    abstract public function getCacheKeys(): array;
+    abstract protected function getCacheKeys(): array;
 }

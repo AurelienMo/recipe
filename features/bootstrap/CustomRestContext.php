@@ -54,8 +54,6 @@ class CustomRestContext extends RestContext
             ['CONTENT_TYPE' => 'application/json']
         );
         $datas = json_decode($requestLogin->getContent(), true);
-        dump($datas);
-        exit;
         $response = $this->request->send(
             $arg5,
             $this->locatePath($arg6),

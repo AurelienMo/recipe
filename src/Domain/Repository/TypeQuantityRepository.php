@@ -23,15 +23,27 @@ class TypeQuantityRepository extends EntityRepository
 {
     public function findByFilters(array $filters)
     {
-        $query = $this->createQueryBuilder('tp');
+        $qb = $this->createQueryBuilder('tp');
 
+        $suffixCacheKey = null;
         foreach ($filters as $field => $value) {
-            $query
+            $qb
                 ->andWhere("tp.{$field} = :value")
                 ->setParameter('value', $value);
+            $suffixCacheKey .= sprintf('_%s_%s', $field, $value);
         }
 
-        return $query->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(
+            true,
+            3600,
+            $suffixCacheKey ?
+                sprintf('detail_type_quantity_%s', $suffixCacheKey)
+                : 'detail_type_quantity'
+        );
+
+        return $query->getResult();
     }
 
     /**
@@ -50,7 +62,6 @@ class TypeQuantityRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 3600, sprintf('type_quantity_%s', $id));
 
         return $query->getSingleScalarResult();
     }

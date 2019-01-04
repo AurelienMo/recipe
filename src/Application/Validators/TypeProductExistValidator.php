@@ -44,7 +44,7 @@ class TypeProductExistValidator extends ConstraintValidator
         if (!\is_null($value)) {
             $typeProduct = $this->entityManager->getRepository(TypeProduct::class)
                                                ->existById($value);
-            if (empty($typeProduct)) {
+            if ($typeProduct === '0') {
                 $this->context->buildViolation($constraint->message)
                               ->addViolation();
             }
