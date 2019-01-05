@@ -16,7 +16,7 @@ namespace App\Application\UseCases;
 use App\Application\Exceptions\ValidatorException;
 use App\Application\Helpers\Core\ErrorsBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

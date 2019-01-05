@@ -11,8 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use App\Application\Helpers\Core\ListRoles;
+use App\Domain\Builders\GroupUserBuilder;
+use App\Domain\Model\GroupUser;
 use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Doctrine\ORM\Tools\SchemaTool;
 use Nelmio\Alice\Loader\NativeLoader;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -88,6 +92,23 @@ class DoctrineContext implements Context
             } else {
                 $this->doctrine->getManager()->persist($object);
             }
+        }
+
+        $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * @Given I load following group:
+     */
+    public function iLoadFollowingGroup(TableNode $table)
+    {
+        foreach ($table->getHash() as $hash) {
+            $owner = $this->doctrine->getManager()->getRepository(User::class)->loadUserByUsername($hash['owner']);
+            $group = new GroupUser($hash['name'], $owner);
+
+            $group->addMemberToGroup($owner);
+            $owner->defineRole(ListRoles::ROLE_GROUP_OWNER);
+            $this->doctrine->getManager()->persist($group);
         }
 
         $this->doctrine->getManager()->flush();

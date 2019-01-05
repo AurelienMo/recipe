@@ -1,7 +1,11 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     role_hierarchy:
-        ROLE_SUPER_ADMIN: ROLE_USER
+        ROLE_GROUP_OWNER: 'ROLE_GROUP_MODERATOR'
+        ROLE_GROUP_MODERATOR: 'ROLE_GROUP_MEMBER'
+        ROLE_GROUP_MEMBER: 'ROLE_USER'
+        ROLE_SUPER_ADMIN: 'ROLE_GROUP_OWNER'
+
     encoders:
         App\Domain\Model\User:
             algorithm: bcrypt

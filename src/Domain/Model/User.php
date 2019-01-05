@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use App\Application\Helpers\Core\ListRoles;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -64,7 +65,12 @@ class User extends AbstractModel implements UserInterface
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->roles[] = $role ?? 'ROLE_USER';
+        $this->roles[] = $role ?? ListRoles::ROLE_USER;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s %s', $this->firstname, $this->lastname);
     }
 
     public function getRoles()
@@ -130,5 +136,10 @@ class User extends AbstractModel implements UserInterface
     public function defineGroup(?GroupUser $group)
     {
         $this->group = $group;
+    }
+
+    public function defineRole(string $role)
+    {
+        $this->roles[] = $role;
     }
 }

@@ -74,6 +74,43 @@ nelmio_api_doc:
                     names:
                         type: array
                         required: true
+            AddGroupInput:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+            GroupOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    name:
+                        type: string
+                        required: true
+                    slug:
+                        type: string
+                        required: true
+                    owner:
+                        type: object
+                        $ref: "#/definitions/UserOutput"
+                    members:
+                        type: array
+                        items:
+                            $ref: "#/definitions/UserOutput"
+            UserOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                    firstname:
+                        type: string
+                        required: true
+                    lastname:
+                        type: string
+                        required: true
 
 
     areas: # to filter documented areas

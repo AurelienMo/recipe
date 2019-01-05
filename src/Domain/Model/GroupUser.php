@@ -81,7 +81,6 @@ class GroupUser extends AbstractModel
 
         return $this;
     }
-
     /**
      * @param User $user
      *

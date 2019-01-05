@@ -1,3 +1,5 @@
 App\Domain\Model\User:
     johndoe:
         __construct: ["John", "Doe", "johndoe", "johndoe@yopmail.com", "12345678", "ROLE_SUPER_ADMIN"]
+    janedoe:
+        __construct: ["Jane", "Doe", "janedoe", "janedoe@yopmail.com", "12345678", "ROLE_SUPER_ADMIN"]

@@ -17,7 +17,6 @@ use App\Application\Helpers\Core\TranslatorBuilder;
 use App\UI\Responders\OutputInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AbstractLoader
