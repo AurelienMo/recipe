@@ -42,7 +42,7 @@ class Persister extends AbstractPersister
         $input->getOwner()->defineRole(ListRoles::ROLE_GROUP_OWNER);
 
         $this->entityManager->persist($group);
-        $this->entityManager->flush($group);
+        $this->entityManager->flush();
 
         return $this->buildOutput($group, $input);
     }
