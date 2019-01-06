@@ -19,5 +19,5 @@ namespace App\Application\Helpers\Core;
 class ListErrorsAuthorization
 {
     const ERROR_ACCESS_GROUP = 'Vous n\'êtes pas autorisé aux informations de ce groupe';
-    const GROUP_NOT_FOUND = 'Le group n\'existe pas.';
+    const GROUP_NOT_FOUND = 'Le groupe n\'existe pas.';
 }
