@@ -37,7 +37,7 @@ class TypeQuantityRepository extends EntityRepository
         $query->useQueryCache(true);
         $query->useResultCache(
             true,
-            3600,
+            30,
             $suffixCacheKey ?
                 sprintf('detail_type_quantity_%s', $suffixCacheKey)
                 : 'detail_type_quantity'
@@ -72,7 +72,7 @@ class TypeQuantityRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 3600, 'list_type_quantity');
+        $query->useResultCache(true, 30, 'list_type_quantity');
 
         return $query->getResult();
     }

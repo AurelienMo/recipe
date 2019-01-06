@@ -14,6 +14,8 @@ declare(strict_types=1);
 use App\Application\Helpers\Core\ListRoles;
 use App\Domain\Builders\GroupUserBuilder;
 use App\Domain\Model\GroupUser;
+use App\Domain\Model\Product;
+use App\Domain\Model\StockProduct;
 use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
@@ -113,4 +115,25 @@ class DoctrineContext implements Context
 
         $this->doctrine->getManager()->flush();
     }
+
+    /**
+     * @Given I load following stock product:
+     */
+    public function iLoadFollowingStockProduct(TableNode $table)
+    {
+        foreach ($table->getHash() as $hash) {
+            $group = $this->doctrine->getManager()->getRepository(GroupUser::class)->findOneBy(['name' => $hash['group']]);
+            $product = $this->doctrine->getManager()->getRepository(Product::class)->findOneBy(['name' => $hash['product']]);
+
+            $stock = new StockProduct(
+                (float) $hash['quantity'],
+                $product,
+                $group
+            );
+            $this->doctrine->getManager()->persist($stock);
+        }
+
+        $this->doctrine->getManager()->flush();
+    }
+
 }

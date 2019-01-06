@@ -42,7 +42,7 @@ class ProductRepository extends EntityRepository
         $key = sprintf('list_product%s', $suffixCacheKey);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, $key === 'list_product' ? 3600 : 30, $key);
+        $query->useResultCache(true, 30, $key);
 
         return $query->getResult();
     }
@@ -62,7 +62,7 @@ class ProductRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 3600, sprintf('detail_product_id_%s', $id));
+        $query->useResultCache(true, 30, sprintf('detail_product_id_%s', $id));
 
         return $query->getOneOrNullResult();
     }

@@ -27,7 +27,7 @@ class TypeProductRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 3600, 'list_type_product');
+        $query->useResultCache(true, 30, 'list_type_product');
 
         return $query->getResult();
     }
@@ -49,7 +49,7 @@ class TypeProductRepository extends EntityRepository
         $query->useQueryCache(true);
         $query->useResultCache(
             true,
-            3600,
+            30,
             $suffixCacheKey ?
                 sprintf('detail_type_product_%s', $suffixCacheKey)
                 : 'detail_type_product_'
@@ -73,7 +73,7 @@ class TypeProductRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        $query->useResultCache(true, 3600, sprintf('detail_type_product_%s', $id));
+        $query->useResultCache(true, 30, sprintf('detail_type_product_%s', $id));
 
         return $query->getSingleScalarResult();
     }

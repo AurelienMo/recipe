@@ -28,11 +28,11 @@ class JWTNotFound
     public function onJWTNotFound(JWTNotFoundEvent $event)
     {
         $data = [
-            'status' => Response::HTTP_FORBIDDEN,
-            'message' => 'Vous n\'êtes pas autorisé à accéder à cette information.'
+            'status' => Response::HTTP_UNAUTHORIZED,
+            'message' => 'Merci de vous authentifier.'
         ];
 
-        $response = new JsonResponse($data, Response::HTTP_FORBIDDEN);
+        $response = new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
 
         $event->setResponse($response);
     }

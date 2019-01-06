@@ -20,8 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Product
- *
- * @ORM\EntityListeners("App\Application\Listeners\Doctrine\Model\ProductListener")
  */
 class Product extends AbstractModel
 {

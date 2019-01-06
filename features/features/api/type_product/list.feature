@@ -9,8 +9,8 @@
 
     Scenario: [Fail] Forbidden access
       When I send a "GET" request to "/api/types-product"
-      Then the response status code should be 403
-      And the JSON node "message" should be equal to "Vous n'êtes pas autorisé à accéder à cette information."
+      Then the response status code should be 401
+      And the JSON node "message" should be equal to "Merci de vous authentifier."
     Scenario: [Success] Submit request & obtain list type of product.
       When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "GET" request to "/api/types-product" with body:
       """

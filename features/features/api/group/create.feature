@@ -17,8 +17,8 @@ Feature: I need to be able to create a group
         "name": "Groupe Test"
     }
     """
-    Then the response status code should be 403
-    And the JSON node "message" should be equal to the string "Vous n'êtes pas autorisé à accéder à cette information."
+    Then the response status code should be 401
+    And the JSON node "message" should be equal to the string "Merci de vous authentifier."
 
   Scenario: [Fail] Submit request with existing groupe name
     When After authentication on url "/api/login_check" with method "POST" as user "janedoe" with password "12345678", I send a "POST" request to "/api/groups" with body:

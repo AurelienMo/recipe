@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Application\UseCases;
 
 use App\Application\Helpers\Core\TranslatorBuilder;
+use App\Domain\Model\StockProduct;
 use App\UI\Responders\OutputInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;

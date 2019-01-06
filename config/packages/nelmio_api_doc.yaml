@@ -111,6 +111,24 @@ nelmio_api_doc:
                     lastname:
                         type: string
                         required: true
+            StockOutput:
+                type: array
+                items:
+                    $ref: "#/definitions/StockItemOutput"
+            StockItemOutput:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        required: true
+                        description: Unique identifier of stock product
+                    product:
+                        type: object
+                        $ref: "#/definitions/AddProductOutput"
+                    quantity:
+                        type: number
+                        required: true
+                        description: Quantity in stock
 
 
     areas: # to filter documented areas

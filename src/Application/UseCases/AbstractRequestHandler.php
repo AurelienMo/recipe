@@ -15,8 +15,12 @@ namespace App\Application\UseCases;
 
 use App\Application\Exceptions\ValidatorException;
 use App\Application\Helpers\Core\ErrorsBuilder;
+use App\Domain\Model\AbstractModel;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -34,21 +38,27 @@ abstract class AbstractRequestHandler
     /** @var TokenStorageInterface */
     protected $tokenStorage;
 
+    /** @var AuthorizationCheckerInterface */
+    protected $authorizationChecker;
+
     /**
      * AbstractRequestHandler constructor.
      *
-     * @param SerializerInterface   $serializer
-     * @param ValidatorInterface    $validator
-     * @param TokenStorageInterface $tokenStorage
+     * @param SerializerInterface           $serializer
+     * @param ValidatorInterface            $validator
+     * @param TokenStorageInterface         $tokenStorage
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
         SerializerInterface $serializer,
         ValidatorInterface $validator,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->serializer = $serializer;
         $this->validator = $validator;
         $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -120,5 +130,15 @@ abstract class AbstractRequestHandler
         $class = $reflectClass->name;
 
         return new $class();
+    }
+
+    protected function checkAuthorization(string $attribute, AbstractModel $model, string $errorMessage)
+    {
+        if (!$this->authorizationChecker->isGranted($attribute, $model)) {
+            throw new HttpException(
+                Response::HTTP_FORBIDDEN,
+                $errorMessage
+            );
+        }
     }
 }
