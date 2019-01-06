@@ -20,4 +20,5 @@ class ListErrorsAuthorization
 {
     const ERROR_ACCESS_GROUP = 'Vous n\'êtes pas autorisé aux informations de ce groupe';
     const GROUP_NOT_FOUND = 'Le groupe n\'existe pas.';
+    const ERROR_EDIT_STOCK_PRODUCT = 'Vous n\'avez pas les droits pour modifier le stock de ce produit.';
 }

@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace App\UI\Actions\API\StockProduct;
 
+use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\StockProduct\UpdateStock\UpdateStockRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
+use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,12 +28,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UpdateStockProduct extends AbstractApiResponder
 {
+    /** @var UpdateStockRequestHandler */
+    private $requestHandler;
+
+    private $persister;
+
+    public function __construct(
+        JsonResponder $responder,
+        UpdateStockRequestHandler $requestHandler
+    ) {
+        $this->requestHandler = $requestHandler;
+        parent::__construct($responder);
+    }
+
     /**
      * @Route("/groups/{groupId}/stock-product/{stockId}", name="update_stock_product", methods={"PUT"})
      *
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws ValidatorException
+     * @throws \ReflectionException
      *
      * @SWG\Parameter(
      *     in="path",
@@ -75,6 +94,9 @@ class UpdateStockProduct extends AbstractApiResponder
      */
     public function update(Request $request)
     {
-        return $this->sendResponse(null);
+        $input = $this->requestHandler->handle($request);
+        $output = $this->persister->save($input);
+
+        return $this->sendResponse($output);
     }
 }

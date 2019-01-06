@@ -17,6 +17,9 @@ Feature: I need to be able to update stock for a given product and given group
     And the JSON node "message" should be equal to "Merci de vous authentifier."
 
   Scenario: [Fail] Submit request with wrong user for a given group
+    And I load following stock product:
+      | group          | quantity | product          |
+      | Group John Doe | 1        | Product 6        |
     When After authentication on url "/api/login_check" with method "POST" as user "janedoe" with password "12345678", I send a "PUT" request to "/api/groups/1/stock-product/1" with body:
     """
     """
