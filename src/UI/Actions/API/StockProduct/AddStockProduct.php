@@ -15,8 +15,10 @@ namespace App\UI\Actions\API\StockProduct;
 
 use App\Application\Exceptions\ValidatorException;
 use App\Application\UseCases\StockProduct\AddProductToStock\AddStockProductRequestHandler;
+use App\Application\UseCases\StockProduct\AddProductToStock\Persister;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
+use Doctrine\ORM\NonUniqueResultException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,11 +33,16 @@ class AddStockProduct extends AbstractApiResponder
     /** @var AddStockProductRequestHandler */
     private $requestHandler;
 
+    /** @var Persister */
+    private $persister;
+
     public function __construct(
         JsonResponder $responder,
-        AddStockProductRequestHandler $requestHandler
+        AddStockProductRequestHandler $requestHandler,
+        Persister $persister
     ) {
         $this->requestHandler = $requestHandler;
+        $this->persister = $persister;
         parent::__construct($responder);
     }
 
@@ -49,6 +56,7 @@ class AddStockProduct extends AbstractApiResponder
      * @return Response
      *
      * @throws ValidatorException
+     * @throws NonUniqueResultException
      *
      * @SWG\Parameter(
      *     in="body",
@@ -80,7 +88,8 @@ class AddStockProduct extends AbstractApiResponder
     public function add(Request $request)
     {
         $input = $this->requestHandler->handle($request);
+        $output = $this->persister->save($input);
 
-        return $this->sendResponse(null, Response::HTTP_CREATED);
+        return $this->sendResponse($output->getItems(), Response::HTTP_CREATED);
     }
 }
