@@ -15,6 +15,8 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\GroupUser;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Class StockProductRepository
@@ -45,6 +47,25 @@ class StockProductRepository extends EntityRepository
         $query->useQueryCache(true);
 
         return $query->getResult();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     *
+     * @throws NonUniqueResultException
+     */
+    public function loadStockById(int $id)
+    {
+        $qb = $this->createQueryBuilder('sp')
+                   ->where('sp.id = :id');
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        $query->useResultCache(true, 30, sprintf('detail_stock_product_%s', $id));
+
+        return $query->getOneOrNullResult();
     }
 
     public function stockGroupHasProduct(GroupUser $groupUser, int $product)

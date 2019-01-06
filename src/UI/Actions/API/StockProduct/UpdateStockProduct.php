@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\UI\Actions\API\StockProduct;
 
 use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\StockProduct\UpdateStock\Persister;
 use App\Application\UseCases\StockProduct\UpdateStock\UpdateStockRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
 use App\UI\Responders\JsonResponder;
@@ -31,17 +32,22 @@ class UpdateStockProduct extends AbstractApiResponder
     /** @var UpdateStockRequestHandler */
     private $requestHandler;
 
+    /** @var Persister */
     private $persister;
 
     public function __construct(
         JsonResponder $responder,
-        UpdateStockRequestHandler $requestHandler
+        UpdateStockRequestHandler $requestHandler,
+        Persister $persister
     ) {
         $this->requestHandler = $requestHandler;
+        $this->persister = $persister;
         parent::__construct($responder);
     }
 
     /**
+     * Update a stock for a given product related a given group
+     *
      * @Route("/groups/{groupId}/stock-product/{stockId}", name="update_stock_product", methods={"PUT"})
      *
      * @param Request $request

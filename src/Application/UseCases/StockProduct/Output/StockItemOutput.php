@@ -14,11 +14,12 @@ declare(strict_types=1);
 namespace App\Application\UseCases\StockProduct\Output;
 
 use App\Application\UseCases\Products\Add\Output\AddProductOutput;
+use App\UI\Responders\OutputInterface;
 
 /**
  * Class StockItemOutput
  */
-class StockItemOutput
+class StockItemOutput implements OutputInterface
 {
     /** @var int */
     protected $id;

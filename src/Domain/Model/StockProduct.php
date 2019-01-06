@@ -60,4 +60,9 @@ class StockProduct extends AbstractModel
     {
         return $this->group;
     }
+
+    public function updateQuantity(float $quantity)
+    {
+        $this->quantity = $quantity;
+    }
 }
