@@ -72,7 +72,7 @@ class ListStockRequestHandler extends AbstractRequestHandler
         if (is_null($group)) {
             throw new HttpException(
                 Response::HTTP_NOT_FOUND,
-                sprintf('Le groupe n\'existe pas.')
+                ListErrorsAuthorization::GROUP_NOT_FOUND
             );
         }
         $this->checkAuthorization('access', $group, ListErrorsAuthorization::ERROR_ACCESS_GROUP);
