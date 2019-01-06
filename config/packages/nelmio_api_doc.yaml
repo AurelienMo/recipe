@@ -160,6 +160,13 @@ nelmio_api_doc:
                         type: integer
                         required: true
                         description: Unique identifier of product's quantity type
+            UpdateStockProductInput:
+                type: object
+                properties:
+                    quantity:
+                        type: number
+                        required: true
+                        description: Quantity to update stock
 
 
     areas: # to filter documented areas

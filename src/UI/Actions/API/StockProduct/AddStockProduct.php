@@ -59,6 +59,13 @@ class AddStockProduct extends AbstractApiResponder
      * @throws NonUniqueResultException
      *
      * @SWG\Parameter(
+     *     in="path",
+     *     name="groupId",
+     *     type="integer",
+     *     required=true,
+     *     description="Group Id targeted to update stock product"
+     * )
+     * @SWG\Parameter(
      *     in="body",
      *     name="body",
      *     description="Datas stock product to add stock product to group",
