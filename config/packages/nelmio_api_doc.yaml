@@ -129,6 +129,37 @@ nelmio_api_doc:
                         type: number
                         required: true
                         description: Quantity in stock
+            AddStockProductInput:
+                type: object
+                properties:
+                    productId:
+                        type: integer
+                        required: false
+                        description: Unique identifier of an existing product
+                    product:
+                        type: object
+                        required: false
+                        description: Datas product if new product
+                        $ref: "#/definitions/NewProductInput"
+                    quantity:
+                        type: number
+                        required: true
+                        description: Define quantity to add to stock
+            NewProductInput:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Name for new product
+                    typeProduct:
+                        type: integer
+                        required: true
+                        description: Unique identifier of product's type
+                    typeQuantity:
+                        type: integer
+                        required: true
+                        description: Unique identifier of product's quantity type
 
 
     areas: # to filter documented areas
