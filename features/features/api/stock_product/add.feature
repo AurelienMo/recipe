@@ -37,7 +37,7 @@ Feature: I need to be able to add a product to stock product for my group
     """
     {
         "quantity": 10
-    )
+    }
     """
     Then the response status code should be 400
     And the JSON should be equal to:
@@ -53,7 +53,7 @@ Feature: I need to be able to add a product to stock product for my group
     When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/groups/1/stock-product" with body:
     """
     {
-        "productId": "1"
+        "productId": 1
     }
     """
     Then the response status code should be 400
@@ -105,7 +105,7 @@ Feature: I need to be able to add a product to stock product for my group
         },
         "definitions": {
             "StockItemOutput": {
-                "type": "object":
+                "type": "object",
                 "properties": {
                     "id": {
                         "type": "integer",
@@ -172,7 +172,7 @@ Feature: I need to be able to add a product to stock product for my group
         },
         "definitions": {
             "StockItemOutput": {
-                "type": "object":
+                "type": "object",
                 "properties": {
                     "id": {
                         "type": "integer",

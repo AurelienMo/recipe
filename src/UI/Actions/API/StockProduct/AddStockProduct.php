@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace App\UI\Actions\API\StockProduct;
 
+use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\StockProduct\AddProductToStock\AddStockProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
+use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +28,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AddStockProduct extends AbstractApiResponder
 {
+    /** @var AddStockProductRequestHandler */
+    private $requestHandler;
+
+    public function __construct(
+        JsonResponder $responder,
+        AddStockProductRequestHandler $requestHandler
+    ) {
+        $this->requestHandler = $requestHandler;
+        parent::__construct($responder);
+    }
+
     /**
      * Add a product to stock of given group
      *
@@ -33,6 +47,8 @@ class AddStockProduct extends AbstractApiResponder
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws ValidatorException
      *
      * @SWG\Parameter(
      *     in="body",
@@ -63,6 +79,8 @@ class AddStockProduct extends AbstractApiResponder
      */
     public function add(Request $request)
     {
+        $input = $this->requestHandler->handle($request);
 
+        return $this->sendResponse(null, Response::HTTP_CREATED);
     }
 }

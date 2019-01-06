@@ -46,4 +46,21 @@ class StockProductRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function stockGroupHasProduct(GroupUser $groupUser, int $product)
+    {
+        $query = $this->createQueryBuilder('sp')
+                      ->where('sp.product = :productId')
+                      ->andWhere('sp.group = :group')
+                      ->setParameters(
+                          [
+                              'productId' => $product,
+                              'group' => $groupUser
+                          ]
+                      )
+                      ->getQuery()
+                      ->getScalarResult();
+
+        return 1 === (int) $query;
+    }
 }
