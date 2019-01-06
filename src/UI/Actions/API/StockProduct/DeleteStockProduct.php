@@ -13,7 +13,11 @@ declare(strict_types=1);
 
 namespace App\UI\Actions\API\StockProduct;
 
+use App\Application\Exceptions\ValidatorException;
+use App\Application\UseCases\StockProduct\DeleteProductFromStock\DeleteStockProductPersister;
+use App\Application\UseCases\StockProduct\DeleteProductFromStock\DeleteStockProductRequestHandler;
 use App\UI\Actions\API\AbstractApiResponder;
+use App\UI\Responders\JsonResponder;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +29,22 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DeleteStockProduct extends AbstractApiResponder
 {
+    /** @var DeleteStockProductRequestHandler */
+    private $requestHandler;
+
+    /** @var DeleteStockProductPersister */
+    private $persister;
+
+    public function __construct(
+        JsonResponder $responder,
+        DeleteStockProductRequestHandler $requestHandler,
+        DeleteStockProductPersister $persister
+    ) {
+        $this->requestHandler = $requestHandler;
+        $this->persister = $persister;
+        parent::__construct($responder);
+    }
+
     /**
      * Delete completely a product from group's stock
      *
@@ -33,6 +53,9 @@ class DeleteStockProduct extends AbstractApiResponder
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws ValidatorException
+     * @throws \ReflectionException
      *
      * @SWG\Parameter(
      *     in="path",

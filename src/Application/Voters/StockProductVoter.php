@@ -17,6 +17,7 @@ use App\Domain\Model\StockProduct;
 use App\Domain\Model\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -24,8 +25,24 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class StockProductVoter extends Voter
 {
+    /** @var Security */
+    private $security;
+
+    /**
+     * StockProductVoter constructor.
+     *
+     * @param Security $security
+     */
+    public function __construct(
+        Security $security
+    ) {
+        $this->security = $security;
+    }
+
     const LIST_ATTRIBUTES = [
-        'edit'
+        'edit',
+        'delete',
+        'deleteUser'
     ];
 
     protected function supports(
@@ -58,6 +75,16 @@ class StockProductVoter extends Voter
     }
 
     private function canEdit(StockProduct $stock, User $user)
+    {
+        return $stock->getGroup() === $user->getGroup();
+    }
+
+    private function canDelete(StockProduct $stock, User $user)
+    {
+        return $this->security->isGranted('ROLE_GROUP_MODERATOR');
+    }
+
+    private function canDeleteUser(StockProduct $stock, User $user)
     {
         return $stock->getGroup() === $user->getGroup();
     }

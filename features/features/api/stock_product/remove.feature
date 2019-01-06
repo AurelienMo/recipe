@@ -25,6 +25,12 @@ Feature: As ROLE_GROUP_MODERATOR, I need to be able to remove completely a produ
     And the JSON node "message" should be equal to "Merci de vous authentifier."
 
   Scenario: [Fail] Try to remove a product on not existing group
+    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "PUT" request to "/api/groups/5/stock-product/1" with body:
+    """
+    """
+    Then the response status code should be 404
+    And the JSON node "message" should be equal to "Le groupe n'existe pas."
+
   Scenario: [Fail] Submit request with wrong user for a given group
     And I load following stock product:
       | group          | quantity | product          |
@@ -43,13 +49,19 @@ Feature: As ROLE_GROUP_MODERATOR, I need to be able to remove completely a produ
     And the JSON node "message" should be equal to "Ce produit n'est pas présent dans votre stock."
 
   Scenario: [Fail] Try to remove a stock product of another my group
-    When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "DELETE" request to "/api/groups/2/stock-product/1" with body:
+    And I load following stock product:
+      | group          | quantity | product          |
+      | Group John Doe | 1        | Product 6        |
+    When After authentication on url "/api/login_check" with method "POST" as user "janedoe" with password "12345678", I send a "DELETE" request to "/api/groups/2/stock-product/1" with body:
     """
     """
     Then the response status code should be 403
     And the JSON node "message" should be equal to "Le stock de ce produit n'appartient pas à votre groupe."
 
   Scenario: [Fail] Try to remove a stock product with insufficient permissions. ROLE_GROUP_MEMBER
+    And I load following stock product:
+      | group          | quantity | product          |
+      | Group John Doe | 1        | Product 6        |
     When After authentication on url "/api/login_check" with method "POST" as user "barfoo" with password "12345678", I send a "DELETE" request to "/api/groups/1/stock-product/1" with body:
     """
     """
@@ -57,6 +69,9 @@ Feature: As ROLE_GROUP_MODERATOR, I need to be able to remove completely a produ
     And the JSON node "message" should be equal to "Vous n'avez pas les droits suffisants pour supprimer le produit du stock"
 
   Scenario: [Success] Successful remove a product with ROLE_GROUP_OWNER
+    And I load following stock product:
+      | group          | quantity | product          |
+      | Group John Doe | 1        | Product 6        |
     When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "DELETE" request to "/api/groups/1/stock-product/1" with body:
     """
     """
@@ -64,6 +79,9 @@ Feature: As ROLE_GROUP_MODERATOR, I need to be able to remove completely a produ
     And the response should be empty
 
   Scenario: [Success] Successful remove a product with ROLE_GROUP_OWNER
+    And I load following stock product:
+      | group          | quantity | product          |
+      | Group John Doe | 1        | Product 6        |
     When After authentication on url "/api/login_check" with method "POST" as user "foobar" with password "12345678", I send a "DELETE" request to "/api/groups/1/stock-product/1" with body:
     """
     """
