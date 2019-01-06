@@ -7,6 +7,7 @@ default:
                     doctrine: '@doctrine'
                     kernel: '@kernel'
                     passwordEncoder: '@security.password_encoder'
+                    encoderFactory: '@security.encoder_factory.generic'
                 - CustomRestContext
                 - behatch:context:json
                 - AccountContext:

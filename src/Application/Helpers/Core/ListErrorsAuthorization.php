@@ -21,4 +21,6 @@ class ListErrorsAuthorization
     const ERROR_ACCESS_GROUP = 'Vous n\'êtes pas autorisé aux informations de ce groupe';
     const GROUP_NOT_FOUND = 'Le groupe n\'existe pas.';
     const ERROR_EDIT_STOCK_PRODUCT = 'Vous n\'avez pas les droits pour modifier le stock de ce produit.';
+    const ERROR_REMOVE_STOCK_PRODUCT = 'Vous n\'avez pas les droits suffisants pour supprimer le produit du stock';
+    const ERROR_REMOVE_STOCK_PRODUCT_USER = 'Le stock de ce produit n\'appartient pas à votre groupe.';
 }

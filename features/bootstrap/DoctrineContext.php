@@ -23,6 +23,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Nelmio\Alice\Loader\NativeLoader;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -44,19 +45,28 @@ class DoctrineContext implements Context
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var EncoderFactoryInterface */
+    private $encoderFactory;
+
     /**
      * DoctrineContext constructor.
      *
      * @param RegistryInterface            $doctrine
      * @param KernelInterface              $kernel
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EncoderFactoryInterface      $encoderFactory
      */
-    public function __construct(RegistryInterface $doctrine, KernelInterface $kernel, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        RegistryInterface $doctrine,
+        KernelInterface $kernel,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EncoderFactoryInterface $encoderFactory
+    ) {
         $this->doctrine = $doctrine;
         $this->schemaTool = new SchemaTool($this->doctrine->getManager());
         $this->kernel = $kernel;
         $this->passwordEncoder = $passwordEncoder;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -136,4 +146,46 @@ class DoctrineContext implements Context
         $this->doctrine->getManager()->flush();
     }
 
+    /**
+     * @Given I load following user:
+     */
+    public function iLoadFollowingUser(TableNode $table)
+    {
+        foreach ($table->getHash() as $hash) {
+            $user = new User(
+                $hash['firstname'],
+                $hash['lastname'],
+                $hash['username'],
+                $hash['email'],
+                $this->getEncoder()->encodePassword($hash['password'], ''),
+                $hash['role']
+            );
+            $this->doctrine->getManager()->persist($user);
+        }
+        $this->doctrine->getManager()->flush();
+    }
+
+    /**
+     * @Given I add following member to group:
+     */
+    public function iAddFollowingMemberToGroup(TableNode $table)
+    {
+        foreach ($table->getHash() as $hash) {
+            $user = $this->doctrine->getManager()->getRepository(User::class)->loadUserByUsername($hash['username']);
+            $user->defineGroup(
+                $this->doctrine->getManager()->getRepository(GroupUser::class)->findOneBy(
+                    [
+                        'name' => $hash['group']
+                    ]
+                )
+            );
+        }
+
+        $this->doctrine->getManager()->flush();
+    }
+
+    private function getEncoder()
+    {
+        return $this->encoderFactory->getEncoder(User::class);
+    }
 }
