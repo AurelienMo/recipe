@@ -47,3 +47,8 @@ services:
         class: App\Application\Listeners\JWT\JWTExpired
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_expired, method: onJWTExpired }
+
+    App\Application\Listeners\JWT\JWTSuccess:
+        class: App\Application\Listeners\JWT\JWTSuccess
+        tags:
+          - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
