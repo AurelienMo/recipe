@@ -17,6 +17,7 @@ use App\Domain\Model\GroupUser;
 use App\Domain\Model\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -27,6 +28,21 @@ class GroupUserVoter extends Voter
     const LIST_ATTRIBUTES = [
         'access'
     ];
+
+    /** @var Security */
+    private $security;
+
+
+    /**
+     * GroupUserVoter constructor.
+     *
+     * @param Security $security
+     */
+    public function __construct(
+        Security $security
+    ) {
+        $this->security = $security;
+    }
 
     protected function supports(
         $attribute,
@@ -59,6 +75,6 @@ class GroupUserVoter extends Voter
 
     private function canAccess(GroupUser $group, User $user)
     {
-        return $group === $user->getGroup();
+        return $group === $user->getGroup() || $this->security->isGranted('ROLE_SUPER_ADMIN');
     }
 }

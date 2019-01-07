@@ -46,4 +46,21 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
 
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * @param int $groupId
+     *
+     * @return mixed
+     */
+    public function loadUserForGroup(int $groupId)
+    {
+        $qb = $this->createQueryBuilder('u')
+                   ->where('u.group = :groupId')
+                   ->setParameter('groupId', $groupId);
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+
+        return $query->getResult();
+    }
 }
