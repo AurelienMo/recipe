@@ -46,6 +46,8 @@ class CreateGroup extends AbstractApiResponder
     }
 
     /**
+     * Create a group
+     *
      * @Route("/groups", name="create_group_user", methods={"POST"})
      *
      * @param Request $request

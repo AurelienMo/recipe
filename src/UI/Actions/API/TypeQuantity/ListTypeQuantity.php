@@ -38,6 +38,8 @@ class ListTypeQuantity extends AbstractApiResponder
     }
 
     /**
+     * List product's quantity type
+     *
      * @Route("/types-quantity", name="list_type_quantity", methods={"GET"})
      *
      * @SWG\Response(
